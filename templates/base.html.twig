@@ -1,0 +1,68 @@
+
+<!doctype html>
+<html lang="fr" data-bs-theme="auto">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>La Boutique Française - 100% Made in France</title>
+    <meta name="description" content="La boutique spécialisée dans la fabrication Made In France">
+
+    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+
+    <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <!-- Custom styles for this template (fichier contenant le code en commun ds toutes les pages) -->
+    <link href="{{asset('assets/css/carousel.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/css/custom.css')}}" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+
+<header data-bs-theme="dark">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">La Boutique Française</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                </ul>
+                <div class="speed-menu">
+                    <a href=""><i data-feather="user"></i></a>
+                    <a href=""><i data-feather="shopping-cart"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main>
+
+    {% block body %}{% endblock %}
+
+
+    <!-- FOOTER -->
+    <footer class="container">
+        <p>&copy; 2017–2024 La Boutique Française <a href="#">CGV</a> &middot; <a href="#">CGU</a></p>
+    </footer>
+</main>
+
+<script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('assets/js/global.js')}}"></script>
+</body>
+</html>
+
+
