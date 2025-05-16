@@ -32,6 +32,10 @@ final class AccountController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
+            $this->addFlash(
+                type: 'success',
+                message: "Votre mot de passe est correctement mis à jour ."
+            );
             
         }
        

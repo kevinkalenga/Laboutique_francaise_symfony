@@ -26,6 +26,12 @@ final class RegisterController extends AbstractController
            
             $entityManager->persist($user);
             $entityManager->flush();
+             $this->addFlash(
+                type: 'success',
+                message: "Votre compte est correctement créé, veuillez vous connecter."
+            );
+
+              return $this->redirectToRoute('app_login');
         }
         
         return $this->render('register/index.html.twig', [
