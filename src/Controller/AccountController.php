@@ -21,7 +21,7 @@ final class AccountController extends AbstractController
     public function password(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
-        // on crée un formumaire et on lui passe une optio passwordHasher qui verif le mdp
+        // on crée un formumaire et on lui passe une option passwordHasher qui verif le mdp
         $form = $this->createForm(PasswordUserForm::class, $user, [
             'passwordHasher' => $passwordHasher
         ]);
