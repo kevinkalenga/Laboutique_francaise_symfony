@@ -32,6 +32,12 @@ class Category
         $this->products = new ArrayCollection();
     }
 
+     // afficher un string et non un objet
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
