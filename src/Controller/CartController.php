@@ -31,11 +31,23 @@ final class CartController extends AbstractController
             message: "Produit correctement ajouté à votre panier."
         );
 
-        return $this->redirectToRoute('app_product', [
-            'slug' => $product->getSlug()
-        ]);
+       
 
-        // return $this->redirect($request->headers->get('referer'));
+         return $this->redirect($request->headers->get('referer'));
+    }
+
+    #[Route('/cart/decrease/{id}', name: 'app_cart_decrease')]
+    public function decrease($id, Cart $cart): Response
+    {
+
+        $cart->decrease($id);
+
+        $this->addFlash(
+            type: 'success',
+            message: "Produit correctement supprimée de votre panier."
+        );
+
+        return $this->redirectToRoute('app_cart');
     }
 
 
