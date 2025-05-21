@@ -70,37 +70,37 @@ class Cart
     }
 
     // fonction retournant le nombre total des produits au panier
-    // public function fullQuantity()
-    // {
-    //     $cart = $this->requestStack->getSession()->get('cart');
-    //     $quantity = 0;
+    public function fullQuantity()
+    {
+        $cart = $this->requestStack->getSession()->get('cart');
+        $quantity = 0;
 
-    //     if (!isset($cart)) {
-    //         return $quantity;
-    //     }
+        if (!isset($cart)) {
+            return $quantity;
+        }
 
 
-    //     foreach ($cart as $product) {
-    //         $quantity = $quantity + $product['qty'];
-    //     }
+        foreach ($cart as $product) {
+            $quantity = $quantity + $product['qty'];
+        }
 
-    //     return $quantity;
-    // }
+        return $quantity;
+    }
 
     // // fonction retournant le prix total des produits au panier
-    // public function getTotalWt()
-    // {
-    //     $cart = $this->requestStack->getSession()->get('cart');
-    //     $price = 0;
+    public function getTotalWt()
+    {
+        $cart = $this->requestStack->getSession()->get('cart');
+        $price = 0;
 
-    //     if (!isset($cart)) {
-    //         return $price;
-    //     }
+        if (!isset($cart)) {
+            return $price;
+        }
 
-    //     foreach ($cart as $product) {
-    //         $price = $price + ($product['object']->getPriceWt() * $product['qty']);
-    //     }
+        foreach ($cart as $product) {
+            $price = $price + ($product['object']->getPriceWt() * $product['qty']);
+        }
 
-    //     return $price;
-    // }
+        return $price;
+    }
 }
