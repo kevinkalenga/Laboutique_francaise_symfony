@@ -54,11 +54,11 @@ class Cart
 
 
     // fonction permettant de supprimer totalement le panier
-    // public function remove()
-    // {
-    //     // Contenu du panier en cours
-    //     return $this->requestStack->getSession()->remove('cart');
-    // }
+    public function remove()
+    {
+        // Contenu du panier en cours
+        return $this->requestStack->getSession()->remove('cart');
+    }
 
 
 

@@ -9,7 +9,28 @@
       
        <div class="row">
             <div class="col-md-8">
-               Liste de mes produits
+               
+               
+                   {% for product in cart %}
+                    <div class="row mt-2">
+                      <div class="col-md-2">
+                         <img src="/uploads/{{product.object.illustration}}" class="img-fluid" alt="{{product.object.name}}">
+                      </div>
+                      <div class="col-md-6">
+                         <strong>{{product.object.name}}</strong>
+                         <span class="d-block small">Prix unitaire : {{product.object.PriceWt|price}}</span>
+                      </div>
+                      <div class="col-md-2 text-right">
+                         <span class="badge text-bg-secondary">x{{ product.qty}}</span>
+                      </div>
+                      <div class="col-md-2">
+                        <strong>{{ (product.qty * product.object.priceWt)|price }}</strong>
+                      </div>
+                    </div>
+                   {% endfor %}
+                  
+               
+               
             </div>
             <div class="col-md-4">
                 Récape de mon panier(prix, bouton commander)
