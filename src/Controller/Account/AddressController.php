@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use App\Form\AddressUserType;
+use App\Form\AddressUserTypeForm;
 use App\Repository\AddressRepository;
 use App\Entity\Address;
 
@@ -32,7 +32,7 @@ class AddressController extends AbstractController
 
 
     #[Route('/compte/adresses/delete/{id}', name: 'app_account_address_delete')]
-    public function delete($id, AddressRepository $adressRepository): Response
+    public function delete($id, AddressRepository $adressRepository, Cart $cart): Response
     {
         $address = $adressRepository->findOneById($id);
         if (!$address or $address->getUser() != $this->getUser()) {
@@ -63,7 +63,7 @@ class AddressController extends AbstractController
             $address->setUser($this->getUser());
         }
 
-        $form = $this->createForm(AddressUserType::class, $address);
+        $form = $this->createForm(AddressUserTypeForm::class, $address);
 
         $form->handleRequest($request);
 

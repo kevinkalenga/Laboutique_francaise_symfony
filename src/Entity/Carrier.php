@@ -23,6 +23,16 @@ class Carrier
     #[ORM\Column]
     private ?float $price = null;
 
+    
+     // object of class App\Entity\Address could not be converted to string
+    public function __toString()
+    {
+        // decimal 2 et le separateur c'est la virgule
+        $price = number_format($this->getPrice(), '2', ',') . ' €';
+        return $this->getName() . '<br/>' . $price . '<br/>' . $this->getDescription();
+    }
+    
+    
     public function getId(): ?int
     {
         return $this->id;

@@ -38,6 +38,13 @@ class Address
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+     // object of class App\Entity\Address could not be converted to string
+    public function __toString(): string
+    {
+        return $this->getFirstname() . ' ' . $this->getLastname() . '<br/>' . $this->getAddress() . '<br/>' . $this->getCity() . ' - ' . $this->getCountry();
+    }
+    
+    
     public function getId(): ?int
     {
         return $this->id;
