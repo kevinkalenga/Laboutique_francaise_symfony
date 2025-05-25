@@ -10,6 +10,8 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\OrderTypeForm;
 use App\Classe\Cart;
+use App\Entity\Order;
+use App\Entity\OrderDetail;
 
 final class OrderController extends AbstractController
 {
@@ -48,6 +50,8 @@ final class OrderController extends AbstractController
         if ($request->getMethod() != 'POST') {
             return $this->redirectToRoute('app_cart');
         } 
+
+        $products = $cart->getCart();
         
         $form = $this->createForm(OrderTypeForm::class, null, [
             'addresses' => $this->getUser()->getAddresses(),
@@ -57,13 +61,48 @@ final class OrderController extends AbstractController
         $form->handleRequest($request); 
 
         if($form->isSubmitted() && $form->isValid()) {
+                
             //  dd($form->getData());
+            // stocker les informations dans la BDD
+            
+             // Création de la chaine d'addresse
+            $addressObj = $form->get('addresses')->getData();
+
+            $address = $addressObj->getFirstname() . ' ' . $addressObj->getLastname() . '<br/>';
+            $address .= $addressObj->getAddress() . '<br/>';
+            $address .= $addressObj->getPostal() . ' ' . $addressObj->getCity() . '<br/>';
+            $address .= $addressObj->getCountry() . '<br/>';
+            $address .= $addressObj->getPhone();
+            
+            
+
+             $order = new Order();
+            //  $order->setUser($this->getUser());
+             $order->setCreatedAt(new \DateTime());
+             $order->setState(1);
+             $order->setCarrierName($form->get('carriers')->getData()->getName());
+             $order->setCarrierPrice($form->get('carriers')->getData()->getPrice());
+             $order->setDelivery($address); 
+
+                // Création d'un nouvel objet orderDetail
+                foreach ($products as $product) {
+                $orderDetail = new OrderDetail();
+                $orderDetail->setProductName($product['object']->getName());
+                $orderDetail->setProductIllustration($product['object']->getIllustration());
+                $orderDetail->setProductPrice($product['object']->getPrice());
+                $orderDetail->setProductTva($product['object']->getTva());
+                $orderDetail->setProductQuantity($product['qty']);
+                $order->addOrderDetail($orderDetail);
+            }
+
+            $entityManager->persist($order);
+            $entityManager->flush();
         }
 
         
         return $this->render('order/summary.html.twig', [
              'choices' => $form->getData(),
-             'cart' => $cart->getCart(),
+             'cart' => $products,
              'totalWt' => $cart->getTotalWt()
         ]);
     }
