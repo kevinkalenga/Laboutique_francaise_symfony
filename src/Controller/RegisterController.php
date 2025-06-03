@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Entity\User;
+use App\Classe\Mail;
 
 final class RegisterController extends AbstractController
 {
@@ -30,6 +31,13 @@ final class RegisterController extends AbstractController
                 type: 'success',
                 message: "Votre compte est correctement créé, veuillez vous connecter."
             );
+            // Envoi d'un email de confirmation d'inscription
+           
+            $mail = new Mail();
+            $vars = [
+              'firstname' => $user->getFirstname()
+            ];
+            $mail->send($user->getEmail(), $user->getFirstname().' '.$user->getLastname(), 'Bienvenu sur la Boutique Française', 'welcome.html', $vars);
 
               return $this->redirectToRoute('app_login');
         }
