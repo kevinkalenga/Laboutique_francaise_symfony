@@ -12,6 +12,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 
 class ProductCrudController extends AbstractCrudController
 {
@@ -20,6 +22,19 @@ class ProductCrudController extends AbstractCrudController
         return Product::class;
     }
 
+    
+     public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInSingular('Produit')
+            ->setEntityLabelInPlural('Produits');
+
+        // ...
+
+    }
+    
+    
+    
     public function configureFields(string $pageName): iterable
     {
         $required = true;
@@ -31,6 +46,8 @@ class ProductCrudController extends AbstractCrudController
         return [
 
             TextField::new('name')->setLabel('Nom')->setHelp('Nom de votre produit'),
+            BooleanField::new('isHomepage')->setLabel('Produit à la une')
+                ->setHelp("Vous permet d'afficher un produit sur la homepage"),
             SlugField::new('slug')->setTargetFieldName('name')->setLabel('URL')->setHelp('URL de votre catégorie générée automatiquement '),
             TextEditorField::new('description')->setLabel('Description')->setHelp('Description de votre produit.'),
             ImageField::new('illustration')
