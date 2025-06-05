@@ -17,8 +17,35 @@
 				<h1>{{ product.name }}</h1>
 				<span class="d-block mb-3">{{ product.PriceWt|price }}</span>
 				{{ product.description|raw }}
-				<a href="{{path('app_cart_add', {id: product.id})}}" class="btn btn-success mt-3 w-100">Ajouter au panier</a>
-
+				<div class="d-flex align-items-center justify-content-between mt-3">
+				     <a href="{{path('app_cart_add', {id: product.id})}}" class="btn btn-success w-100">Ajouter au panier</a>
+                     
+					 {% if app.user %}
+					    {% if product in app.user.wishlists %}
+                               <a class="wishlist-icon wishlist-icon-active" href="{{path('app_account_wishlist_remove', {id : product.id})}}" style="margin-left:10px;">
+				                 <i data-feather="heart"></i>
+				               </a>
+						{% else %}
+						
+						   <a class="wishlist-icon" href="{{path('app_account_wishlist_add', {id : product.id})}}" style="margin-left:10px;">
+				              <i data-feather="heart"></i>
+				           </a>
+						{% endif %}
+					 {% else %}
+                        <a data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" style="margin-left: 10px;">
+				            <i data-feather="heart"></i>
+				        </a>
+					 {% endif %}
+					 
+					 
+					 
+				</div>
+				
+                <div class="collapse" id="collapseExample">
+                     <div class="mt-2">
+                       Pour utiliser les avantages de la wishlist, <a href="{{path('app_login')}}">connectez-vous</a> ou <a href="{{path('app_register')}}">créez votre compte</a> client.
+                     </div>
+                </div>
 			</div>
 		</div>
 
