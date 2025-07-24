@@ -1,0 +1,40 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}Commandes - État : {{ state|capitalize }}{% endblock %}
+
+{% block main %}
+    <h1>Commandes - État : {{ state|capitalize }}</h1>
+
+    {% if orders is empty %}
+        <p>Aucune commande trouvée pour cet état.</p>
+    {% else %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Date</th>
+                    <th>Utilisateur</th>
+                    <th>Transporteur</th>
+                    <th>Total TTC</th>
+                    <th>Détails</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.createdAt|date('d/m/Y') }}</td>
+                        <td>{{ order.user ? order.user.email : 'Anonyme' }}</td>
+                        <td>{{ order.carrierName }}</td>
+                        <td>{{ order.totalWt|price }}</td>
+                        <td>
+                            <a href="{{ path('admin_order_detail', {id: order.id}) }}" class="btn btn-primary btn-sm">
+                                Voir détail
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

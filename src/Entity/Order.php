@@ -104,6 +104,10 @@ class Order
 
     public function setState(int $state): static
     {
+         // Si la commande est annulée (5), on refuse tout changement d’état
+          if ($this->state === 5 && $newState !== 5) {
+             throw new \LogicException('Une commande annulée ne peut pas changer d\'état.');
+          }
         $this->state = $state;
 
         return $this;
@@ -198,4 +202,17 @@ class Order
 
         return $this;
     }
+
+    public function getStateLabel(): string
+{
+    return match ($this->state) {
+        1 => '🕓 En attente de paiement',
+        2 => '✅ Payée',
+        3 => '📦 Préparation',
+        4 => '🚚 Expédiée',
+        5 => '❌ Annulée',
+        default => '❓ Inconnu',
+    };
+}
+
 }

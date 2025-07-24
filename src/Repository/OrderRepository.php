@@ -16,6 +16,17 @@ class OrderRepository extends ServiceEntityRepository
         parent::__construct($registry, Order::class);
     }
 
+    public function findOrdersByStateCode(int $stateCode): array
+{
+    return $this->createQueryBuilder('o')
+        ->andWhere('o.state = :state')
+        ->setParameter('state', $stateCode)
+        ->orderBy('o.createdAt', 'DESC')
+        ->getQuery()
+        ->getResult();
+}
+
+
     //    /**
     //     * @return Order[] Returns an array of Order objects
     //     */
